@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    border: 1px solid #7d7d7d;
+    border-radius: 2rem;
+    height: 45px;
+    min-width: 250px;
+    width: 100%;
+
+  }
+
+.input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    color: #7d7d7d;
+    width: 150px;
+  }
+
+  .cal {
+    width: 20px;
+    height: 20px;
+  }
+  

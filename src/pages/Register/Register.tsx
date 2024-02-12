@@ -168,7 +168,7 @@ const Register: React.FC = () => {
                 <div className='w-full flex items-center justify-center'>
                     <button
                         onClick={handleRegister}
-                        className="bg-blue-500 text-white flex items-center justify-center h-[2.5rem] w-[6rem] rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+                        className="bg-neutral-700 hover:bg-neutral-600 text-white flex items-center justify-center h-[2.5rem] w-[6rem] rounded focus:outline-none focus:ring focus:ring-blue-200"
                     >
                         {
                        loading.register ||  avatarLoading? <ClipLoader color='white' size={18} />:"Register"

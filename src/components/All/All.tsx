@@ -27,8 +27,14 @@ const All = () => {
        }  
 
        {
-        (state.tasks.length < 1 && !loading.getTasks) && <div onClick={handleNavigate} className="w-[10rem] rounded-md hover:bg-neutral-500 cursor-pointer flex items-center justify-center bg-neutral-700 text-neutral-100 h-[2rem]">
-          No task, add one!
+        (state.tasks.length < 1 && !loading.getTasks) && 
+        <div className="flex flex-col gap-y-[.4rem]">
+          <div className="text-center">
+               You dont have any task.
+          </div>
+          <div onClick={handleNavigate} className="w-[10rem] rounded-md hover:bg-neutral-500 cursor-pointer flex items-center justify-center bg-neutral-700 text-neutral-100 h-[2rem]">
+          Add one
+        </div>
         </div>
        }
     </div>

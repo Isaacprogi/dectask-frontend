@@ -124,7 +124,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
             <div onClick={handleView} className='w-full flex flex-col border-2 shadow-sm relative group bg-white p-[1rem] hover:border-blue-500 hover:border-2 rounded-lg hover:bg-neutral-100 hover:shadow-lg cursor-pointer transition-all duration-300 overflow-hidden h-[9rem] max-w-[20rem]'>
                 <span className="bottom-[.1rem] left-[1rem] absolute rounded-full text-gray-600 text-[.8rem] font-[400]">
-                    <div className="flex gap-x-[.4rem]">
+                    <div className="flex flex-wrap gap-x-[.4rem]">
                         <span className="font-[600] flex text-pink-600">Due</span>
                         {formatDueDate(task.dueDate)} :
                         <span className="bg-red-200 text-gray-700 rounded-md px-[.2rem]">

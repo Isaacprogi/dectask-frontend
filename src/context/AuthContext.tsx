@@ -11,7 +11,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const [user, setUser] = useState<User>({ id: "", fullName: '', email: '', avatar: '' });
-  const [token, setToken] = useState<string | undefined>(Cookies.get('token'));
+  const [token, setToken] = useState<string | undefined>(Cookies.get('bas-tok'));
   const [error, setError] = useState<authError>({ login: "", register: "",logout:"", refresh: "" })
   const [loading, setLoading] = useState<authLoading>({ login: false, register: false,logout:false, refresh:false })
 
@@ -24,14 +24,16 @@ export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = (
       const { accesstoken, ...others } = await data
       setUser(others)
       setToken(accesstoken)
-      Cookies.set('token', accesstoken, {
-        expires: 30 / (24 * 60),
-        // secure: true,
-        // sameSite: 'Strict',
+      Cookies.set('bas-tok', accesstoken, {
+        expires: 30 / (24 * 60), // 30 minutes
+        secure: true,
+        sameSite: 'Strict',
+        httpOnly: true 
       });
       navigate('/')
       setLoading(prev => ({ ...prev, login: false }))
     } catch (error: any) {
+      console.error("Error:", error.message);
       setError(prev => ({ ...prev, login: error?.response?.data }))
       setLoading(prev => ({ ...prev, login: false }))
     }
@@ -44,15 +46,16 @@ export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = (
       const { accesstoken,...others } = await data
       setUser(others)
       setToken(accesstoken)
-      Cookies.set('token', accesstoken, {
-        expires: 30 / (24 * 60),
+      Cookies.set('bast-tok', accesstoken, {
+        expires: 30 / (24 * 60), // 30 minutes
         secure: true,
         sameSite: 'Strict',
+        httpOnly: true 
       });
-
       navigate('/')
       setLoading(prev => ({ ...prev, register: false }))
     } catch (error: any) {
+      console.error("Error:", error.message);
       setError(prev => ({ ...prev, register: error?.response?.data }))
       setLoading(prev => ({ ...prev, register: false }))
     }
@@ -64,13 +67,11 @@ export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = (
       await logoutApi()
       setUser({ id: "", fullName: '', email: '', avatar: '' })
       setToken('')
-      Cookies.remove('token', {
-        // secure: true,
-        // sameSite: 'Strict',
-      });
+      Cookies.remove('bast-tok');
       navigate('/login')
       setLoading(prev => ({ ...prev, logout: false }))
     } catch (error: any) {
+      console.error("Error:", error.message);
       setError(prev => ({ ...prev, logout: error?.response?.data }))
       setLoading(prev => ({ ...prev, logout: true }))
     }
@@ -86,14 +87,17 @@ export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = (
         setUser(others)
       }
       if(accesstoken){
-        Cookies.set('token', accesstoken, {
+        Cookies.set('bast-tok', accesstoken, {
           expires: 30 / (24 * 60),
-          // secure: true,
-          // sameSite: 'Strict',
+          secure: true,
+          sameSite: 'Strict',
+          httpOnly: true 
         });
       }
       setLoading(prev => ({ ...prev, refresh: false }))
     } catch (error: any) {
+      console.log(error.message)
+      console.error("Error:", error.message);
       setLoading(prev => ({ ...prev, refresh: false }))
       setError(prev => ({ ...prev, refresh: error?.response?.data }))
     }

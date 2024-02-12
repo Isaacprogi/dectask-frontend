@@ -89,7 +89,7 @@ const TaskContextProvider: React.FC<{ children: ReactElement }> = ({ children })
         dispatch({ type: "SET_TASKS", payload: data });
         setLoading(prev => ({ ...prev, getTasks: false }))
       } catch (error: any) {
-        console.error("Error fetching tasks:", error);
+        console.error("Error:", error.message);
         setError(prev => ({ ...prev, getTasks: error?.response?.data }))
         setLoading(prev => ({ ...prev, getTasks: false }))
       }
@@ -106,15 +106,15 @@ const TaskContextProvider: React.FC<{ children: ReactElement }> = ({ children })
         dispatch({ type: "ADD_TASK", payload: data });
         setLoading(prev => ({ ...prev, addTask: false }))
         setAddTaskForm({
-          title: 'To Do',
+          title: '',
           description: '',
-          status: '',
+          status: 'To Do',
           dueDate: new Date().toISOString(),
         })
         setActive(false)
         navigate('/')
       } catch (error: any) {
-        console.error("Error fetching tasks:", error);
+        console.error("Error:", error?.message);
         setError(prev => ({ ...prev, addTask: error?.response?.data }))
         setLoading(prev => ({ ...prev, addTask: false }))
       }
@@ -133,7 +133,7 @@ const TaskContextProvider: React.FC<{ children: ReactElement }> = ({ children })
         setDeleteActive(false)
         setModalActive(false)
       } catch (error: any) {
-        console.error("Error deleting task:", error);
+        console.error("Error:", error?.message);
         setError(prev => ({ ...prev, deleteTask: error?.response?.data }))
         setLoading(prev => ({ ...prev, deleteTasks: false }))
       }
@@ -159,7 +159,7 @@ const TaskContextProvider: React.FC<{ children: ReactElement }> = ({ children })
         setActive(false),
         navigate('/')
       } catch (error: any) {
-        console.error("Error updating task:", error);
+        console.error("Error:", error?.message);
         setError(prev => ({ ...prev, updateTask: error?.response?.data }))
         setLoading(prev => ({ ...prev, updateTask: false }))
       }

@@ -31,7 +31,7 @@ const Login: React.FC = () => {
 
     return (
         <div className='w-full h-full flex flex-col items-center justify-center items-center justify-center'>
-            <h1 className='text-center font-[500] text-3xl text-gray-500'>Welcome Back!</h1>
+            <h1 className='text-center font-[500] text-3xl text-gray-500'>Welcome!</h1>
             <form onSubmit={handleLogin} className="max-w-md w-full mx-auto mt-8 p-4 rounded">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Email
@@ -66,7 +66,7 @@ const Login: React.FC = () => {
                 <div className='w-full flex items-center justify-center'>
                    <button
                         onClick={handleLogin}
-                        className="bg-blue-500 text-white h-[2.5rem] w-[6rem] flex items-center justify-center rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+                        className="bg-neutral-700 text-white h-[2.5rem] w-[6rem] flex items-center justify-center rounded hover:bg-neutral-600 focus:outline-none focus:ring focus:ring-blue-200"
                     >
                         {
                        loading.login? <ClipLoader color='white' size={18} />:"Login"

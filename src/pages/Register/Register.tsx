@@ -78,10 +78,10 @@ const Register: React.FC = () => {
 
     return (
         <div className='w-full h-full flex flex-col items-center justify-center items-center justify-center'>
-            <h1 className='text-center font-[500] rounded-full overflow-hidden text-3xl text-gray-500'>
+            <h1 className='text-center font-[500] mt-[1rem] rounded-full overflow-hidden text-2xl text-gray-500'>
                 DECK TASK
             </h1>
-            <form className="max-w-md w-full mx-auto mt-8 p-4 rounded">
+            <form className="max-w-md w-full mx-auto mt-4 p-4 rounded">
                 <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
                     Full Name
                 </label>

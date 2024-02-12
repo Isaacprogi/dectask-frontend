@@ -1,7 +1,7 @@
 import axios from "axios";
 import { RegisterData,LoginData  } from "../types/types";
 
-const baseUrl: string = 'http://localhost:4000/api';
+const baseUrl: string = 'https://decktaskapi.onrender.com/api';
 
 const api = axios.create({
   baseURL: baseUrl,

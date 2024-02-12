@@ -1,7 +1,7 @@
 import { Task, addTaskType } from "../types/types";
 import axios from "axios";
 
-const baseUrl:string = 'http://localhost:4000/api'
+const baseUrl:string = 'https://decktaskapi.onrender.com/api'
 
 export const fetchTasksApiCall = async (config:Object): Promise<any> => {
     return await axios.get(`${baseUrl}/task`,config)

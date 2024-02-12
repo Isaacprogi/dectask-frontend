@@ -6,6 +6,7 @@ import { BsPencil } from "react-icons/bs";
 import { FaTrash } from 'react-icons/fa'
 import { formatDate } from "../../utils/formatDate";
 import './taskcard.css'
+import { ClipLoader } from "react-spinners";
 
 interface TaskCardProps {
     task: Task;
@@ -15,7 +16,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
     const handleClose = () => setModalActive(false)
     const navigate = useNavigate()
 
-    const { state, dispatch,error,modalActive,setModalActive,deleteTask,setUpdateTaskForm,deleteActive,setDeleteActive } = useTaskContext()
+    const { state,loading, dispatch,error,modalActive,setModalActive,deleteTask,setUpdateTaskForm,deleteActive,setDeleteActive } = useTaskContext()
 
     const handleEdit = () => {
         dispatch({
@@ -47,6 +48,30 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         setModalActive(false)
     }
 
+
+    const formatDueDate = (dueDate: string | Date): string => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); 
+        const due = new Date(dueDate);
+        due.setHours(0, 0, 0, 0); 
+        const timeDiff = due.getTime() - today.getTime();
+        const dayDiff = Math.round(timeDiff / (1000 * 60 * 60 * 24)); 
+    
+        if (dayDiff === 0) {
+            return 'today';
+        } else if (dayDiff === 1) {
+            return 'tomorrow';
+        } else if (dayDiff === -1) {
+            return 'yesterday';
+        } else if (dayDiff < 0) {
+            return `${Math.abs(dayDiff)} days ago`;
+        } else {
+            return `in ${dayDiff} days`;
+        }
+    };
+    
+    
+
     return (
         <>
             <Modal isOpen={modalActive} handleClose={handleClose}>
@@ -57,9 +82,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
                             <div>Are you sure you want to delete this task</div>
                             <div className="flex items-center justify-center  gap-x-[1rem]">
                                 <span onClick={handleCancel} className=" bg-neutral-600 hover:bg-neutral-500  flex items-center justify-center text-white  cursor-pointer h-[2rem] w-[6rem] rounded-md overflow-hidden">Cancel</span>
-                                <span onClick={handleDelete} className=" bg-neutral-600 hover:bg-neutral-500  flex items-center justify-center text-white  cursor-pointer h-[2rem] w-[6rem] rounded-md overflow-hidden">Yes</span>
+                                <span onClick={handleDelete} className=" bg-neutral-600 hover:bg-neutral-500  flex items-center justify-center text-white  cursor-pointer h-[2rem] w-[6rem] rounded-md overflow-hidden">
+                                   {
+                                    loading.deleteTask?<ClipLoader size={18} color="white"/>:'Yes'
+                                   } 
+                                </span>
                             </div>
-                            <div className="h-[3rem]">
+                            <div className="h-[1rem]">
                                 {error.deleteTask && "Task not deleted"}
                             </div>
                         </div>
@@ -93,18 +122,21 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
             </Modal>
 
-            <div onClick={handleView} className='w-full  flex flex-col border-2 shadow-sm  relative group bg-white p-[1rem]  hover:border-blue-500 hover:border-2 rounded-lg hover:bg-neutral-100 hover:shadow-lg cursor-pointer transition-all duration-300 overflow-hidden flex h-[9rem]  max-w-[20rem]'>
-                <span className=" bottom-[.1rem] left-[1rem] absolute  rounded-full overflow-hidden   text-gray-600 overflow-hidden text-[.8rem] font-[400] ">
+            <div onClick={handleView} className='w-full flex flex-col border-2 shadow-sm relative group bg-white p-[1rem] hover:border-blue-500 hover:border-2 rounded-lg hover:bg-neutral-100 hover:shadow-lg cursor-pointer transition-all duration-300 overflow-hidden h-[9rem] max-w-[20rem]'>
+                <span className="bottom-[.1rem] left-[1rem] absolute rounded-full text-gray-600 text-[.8rem] font-[400]">
                     <div className="flex gap-x-[.4rem]">
-                        <span className="font-[600] text-pink-600">Due on</span>
-                        {formatDate(task.dueDate)}
+                        <span className="font-[600] flex text-pink-600">Due</span>
+                        {formatDueDate(task.dueDate)} :
+                        <span className="bg-red-200 text-gray-700 rounded-md px-[.2rem]">
+                        {`${formatDate(task.dueDate)}`}
+                        </span>
                     </div>
                 </span>
                 <span className="text-lg font-[600]">{task.title}</span>
                 <span className="w-full tex-elip pb-[.7rem]">
                     {task.description}
                 </span>
-                <span onClick={handleEdit} className="text-[1rem] rounded-full absolute right-[.4rem] hidden group-hover:flex text-black  top-[.3rem]  hover:bg-neutral-200 h-[2rem] min-w-[2rem] flex items-center justify-center rounded-full overflow-hidden">
+                <span onClick={(e) => { e.stopPropagation(); handleEdit(); }} className="text-[1rem] rounded-full absolute right-[.4rem] hidden md:group-hover:flex text-black top-[.3rem] hover:bg-neutral-200 h-[2rem] min-w-[2rem] flex items-center justify-center rounded-full overflow-hidden">
                     <BsPencil />
                 </span>
             </div>

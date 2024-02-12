@@ -4,11 +4,14 @@ import { BsChevronLeft } from 'react-icons/bs'
 import useStatusContext from '../../hooks/useStatusContext';
 import { useLocation } from 'react-router-dom';
 import useHeaderContext from '../../hooks/useHeaderContext';
+import { ChangeEvent } from 'react';
+import useTaskContext from '../../hooks/useTaskContext';
 
 
 const Header = () => {
   const { statuses, setStatuses } = useStatusContext()
   const { pathname } = useLocation()
+  const {setModalActive} = useTaskContext()
 
   const onEditRoute: boolean = pathname === '/edit' || pathname === '/new'
 
@@ -19,8 +22,11 @@ const Header = () => {
     setStatuses(updatedStatuses)
   };
 
-  const handleChange = () => {
-
+  const handleChange = (e:ChangeEvent<HTMLSelectElement>) => {
+    const updatedStatuses = statuses.map(status =>
+      status.value === e.target.value ? { ...status, active: true } : { ...status, active: false }
+    );
+    setStatuses(updatedStatuses)
   }
 
 
@@ -31,7 +37,9 @@ const Header = () => {
 
       <div>
         {
-          (!active && !onEditRoute) ? <NavLink onClick={() => setActive(true)} end
+          (!active && !onEditRoute) ? <NavLink onClick={() =>{
+            setActive(true)
+          } } end
             className='rounded-md bg-neutral-600 hover:bg-neutral-500 text-white flex 
           items-center justify-center  w-[5rem] h-[2.5rem] transition-all duration-300'
             to='/new'>
@@ -41,7 +49,10 @@ const Header = () => {
             <span>
               <MdAdd />
             </span>
-          </NavLink> : <NavLink onClick={() => setActive(false)} end
+          </NavLink> : <NavLink onClick={() => {
+              setActive(false)
+              setModalActive(false)
+          } } end
             className='rounded-md  bg-neutral-600 hover:bg-neutral-500 w-[5rem] h-[2.5rem] text-white flex 
           items-center justify-center text-[4xl]  transition-all duration-300'
             to='/'>

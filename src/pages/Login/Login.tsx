@@ -10,6 +10,7 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
 
     const handleLogin = (e: React.FormEvent) => {
+        setError(prev=>({...prev,login:""}))
         e.preventDefault();
         login(credentials);
     };

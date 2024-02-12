@@ -46,8 +46,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = (
       setToken(accesstoken)
       Cookies.set('token', accesstoken, {
         expires: 30 / (24 * 60),
-        // secure: true,
-        // sameSite: 'Strict',
+        secure: true,
+        sameSite: 'Strict',
       });
 
       navigate('/')

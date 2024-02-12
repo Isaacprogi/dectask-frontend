@@ -52,8 +52,8 @@ const TaskContextProvider: React.FC<{ children: ReactElement }> = ({ children })
   const [addTaskForm, setAddTaskForm] = useState<addTaskType>({
     title: '',
     description: '',
-    status: '',
-    dueDate: new Date().toISOString(),
+    status: 'To Do',
+    dueDate: new Date().toISOString()
   })
 
   const [updateTaskForm, setUpdateTaskForm] = useState<Task>({
@@ -106,10 +106,10 @@ const TaskContextProvider: React.FC<{ children: ReactElement }> = ({ children })
         dispatch({ type: "ADD_TASK", payload: data });
         setLoading(prev => ({ ...prev, addTask: false }))
         setAddTaskForm({
-          title: '',
+          title: 'To Do',
           description: '',
           status: '',
-          dueDate: '',
+          dueDate: new Date().toISOString(),
         })
         setActive(false)
         navigate('/')
@@ -154,7 +154,7 @@ const TaskContextProvider: React.FC<{ children: ReactElement }> = ({ children })
           title: '',
           description: '',
           status: '',
-          dueDate: '',
+          dueDate: new Date().toISOString(),
         })
         setActive(false),
         navigate('/')

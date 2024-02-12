@@ -14,7 +14,7 @@ const Modal:React.FC<Props> = (props) => {
                  
         </div>
         
-      <div className="w-full flex justify-center items-center    min-h-full p-[3rem]">
+      <div className="w-full flex justify-center items-center    min-h-full p-[1rem] sm:p-[2rem]">
       {props.children}
       </div>
         

@@ -4,7 +4,7 @@ import CustomDatePicker from '../../components/common/DatePicker/DatePicker';
 import { ClipLoader } from 'react-spinners';
 
 const EditTask: React.FC = () => {
-  const { error,updateTaskForm,setUpdateTaskForm, loading, updateTask } = useTaskContext()
+  const { error,updateTaskForm,setUpdateTaskForm, loading, updateTask,setModalActive } = useTaskContext()
 
 
 
@@ -27,6 +27,7 @@ const EditTask: React.FC = () => {
   const handleSubmit = async(e: FormEvent) => {
     e.preventDefault();
     updateTask(updateTaskForm._id,updateTaskForm)
+    setModalActive(false)
   };
 
 

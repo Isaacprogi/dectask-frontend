@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import Notifications from './pages/Notifications/Notifications';
 import NavBar from './components/NavBar/NavBar';
 import AddTask from './pages/AddTask/AddTask';
 import Task from './components/TaskCategory/TaskCategory';
@@ -11,6 +10,8 @@ import Register from './pages/Register/Register';
 import { useAuthContext } from './hooks/useAuthContext';
 import { useEffect } from 'react'
 import useTaskContext from './hooks/useTaskContext';
+import { useLocation } from 'react-router-dom';
+import useHeaderContext from './hooks/useHeaderContext';
 
 const PrivateRoute = ({ element }: { element: React.ReactNode }) => {
   const { token } = useAuthContext();
@@ -31,6 +32,14 @@ const PublicRoute = ({ element }: { element: React.ReactNode }) => {
 const App = () => {
   const { token, refresh } = useAuthContext();
   const {getTasks} = useTaskContext()
+  const {pathname} = useLocation()
+  const {setActive} = useHeaderContext()
+
+  const onHomeRoute: boolean = pathname === '/'
+
+  useEffect(()=>{
+      setActive(false)
+  },[onHomeRoute])
 
   useEffect(()=>{
     refresh()
@@ -49,7 +58,6 @@ const App = () => {
           <Route path='/new' element={<AddTask />} />
           <Route path='/edit' element={<EditTask />} />
         </Route>
-        <Route path='/notifications' element={<PrivateRoute element={<Notifications />} />} />
         <Route path='/login' element={<PublicRoute element={<Login />} />} />
         <Route path='/register' element={<PublicRoute element={<Register />} />} />
       </Routes>

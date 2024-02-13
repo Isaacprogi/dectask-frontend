@@ -100,7 +100,9 @@ export type authLoading = {
 
 export interface AuthContextType {
   user: User
+  setUser:React.Dispatch<React.SetStateAction<User>>
   token: string | undefined,
+  setToken:React.Dispatch<React.SetStateAction<string | undefined>>
   error: authError,
   setError: React.Dispatch<React.SetStateAction<{
     login: string;

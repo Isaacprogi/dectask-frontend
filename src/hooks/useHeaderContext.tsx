@@ -5,7 +5,7 @@ import { HeaderContextProps } from '../types/types';
   const useHeaderContext = (): HeaderContextProps => {
     const context = useContext(HeaderContext);
     if (!context) {
-      throw new Error('useStatusContext must be used within a StatusContextProvider');
+      throw new Error('useHeaderContext must be used within a HeaderContextProvider');
     }
     return context;
   };

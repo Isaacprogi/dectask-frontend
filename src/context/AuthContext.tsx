@@ -5,7 +5,6 @@ import { loginApi, registerApi, refreshApi,logoutApi } from '../api/auth';
 import { User } from '../types/types';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import useTaskContext from '../hooks/useTaskContext'
 
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,7 +16,6 @@ export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = (
   const [loading, setLoading] = useState<authLoading>({ login: false, register: false,logout:false, refresh:false })
 
   const navigate = useNavigate()
-  const {dispatch} = useTaskContext()
 
   const login = async (user: LoginData) => {
     setLoading(prev => ({ ...prev, login: true }))
@@ -70,7 +68,6 @@ export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = (
       setUser({ id: "", fullName: '', email: '', avatar: '' })
       setToken('')
       Cookies.remove('bast-tok');
-      dispatch({ type: "SET_TASKS", payload: [] });
       navigate('/login')
       setLoading(prev => ({ ...prev, logout: false }))
     } catch (error: any) {
@@ -109,7 +106,9 @@ export const AuthContextProvider: React.FC<{ children: React.ReactElement }> = (
 
   const contextValue: AuthContextType = {
     user,
+    setUser,
     token,
+    setToken,
     login,
     logout,
     loading,
